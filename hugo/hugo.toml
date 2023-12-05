@@ -24,6 +24,10 @@ title = "Contact"
 url = 'https://iceberg.thebigdata.space'
 title = "Iceberg"
 
+[[params.menu.main]]
+url = 'https://deltalake.thebigdata.space/'
+title = "DeltaLake"
+
 
 [params]
 fancyTitle = "The Big Data Space" # title for frontpage, may include image
