@@ -1,7 +1,7 @@
 baseURL = "/"
 languageCode = 'en-us'
 title = 'The Big Data Space'
-theme = "spectral"
+theme = "hugo-arcana"
 
 [markup]
   [markup.goldmark]
