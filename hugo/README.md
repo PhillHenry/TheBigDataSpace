@@ -1,1 +1,1 @@
-Run `git clone https://github.com/sbruder/spectral.git themes/spectral` first
+Run `https://github.com/half-duplex/hugo-arcana.git` first
