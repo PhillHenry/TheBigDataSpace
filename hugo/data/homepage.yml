@@ -2,9 +2,9 @@ banner:
   enable: true
   image: "images/banner.jpg"
   contents: "**The Big Data Space** _By architects. For architects._"
-  button:
-    contents: "Learn More"
-    url: "#"
+  #  button:
+  #  contents: "Learn More"
+  #  url: "#"
 items:
   - type: highlights
     items_per_row: 3
