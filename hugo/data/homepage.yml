@@ -1,0 +1,35 @@
+banner:
+  enable: true
+  image: "images/banner.jpg"
+  contents: "**The Big Data Space** _By architects. For architects._"
+  button:
+    contents: "Learn More"
+    url: "#"
+items:
+  - type: highlights
+    items_per_row: 3
+    items:
+    - title: Apache Iceberg
+      icon: img/iceberg.webp
+      content: >
+        [BDDs](https://iceberg.thebigdata.space/)
+    - title: Delta Lake
+      icon: img/delta-lake-logo.png
+      content: >
+        [BDDs](https://deltalake.thebigdata.space/)
+    - title: Spark
+      icon: img/spark-logo.png
+      content: >
+              Spark
+  - type: heading
+    heading: No longer medieval architecture
+    contents: With worked examples that illustrate functionality, we make systems architecture much more scientific.
+  - type: posts
+    #heading: Recent Posts
+    content_type: posts
+    max: 4
+    #  - type: cta
+    #    contents: Are you ready to continue your quest?
+    #button:
+    #  contents: Insert Coin
+    #  url: "#"
