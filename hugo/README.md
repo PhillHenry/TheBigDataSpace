@@ -1,1 +1,1 @@
-Run `https://github.com/half-duplex/hugo-arcana.git` first
+Run `git clone https://github.com/half-duplex/hugo-arcana.git themes/hugo-arcana` first
