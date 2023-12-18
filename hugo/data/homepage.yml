@@ -17,6 +17,10 @@ items:
       icon: img/delta-lake-logo.png
       content: >
         [BDDs](https://deltalake.thebigdata.space/)
+    - title: Kafka
+      icon: img/kafka_logo.png
+      content: >
+        [BDDs](https://streaming.thebigdata.space/)
     - title: Spark
       icon: img/spark-logo.png
       content: >
