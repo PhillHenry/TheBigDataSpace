@@ -1,6 +1,6 @@
 banner:
   enable: true
-  image: "images/banner.jpg"
+  image: img/russian_cathedral_small.jpg
   contents: "**The Big Data Space** _By architects. For architects._"
   #  button:
   #  contents: "Learn More"
