@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+
+<title>Z-Ordering | The Big Data Space</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/style.css" />
+<meta property="og:title" content="Z-Ordering" />
+<meta property="og:description" content="Z-ordering is an optimization technique in big data that allows faster access since similar data lives together. We discuss the algorithm that defines what is similar here.
+Imagine a logical grid where all the values of one column run across the top and all the values from another run down the side. If we were to sort this data, every datum can be placed somewhere in that grid.
+Now, if the squares of the grid were mapped to files and all the data in each cell were to live in those files, we have made searching much easier as we now know the subset of files in which it may live." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/zorder/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-09T17:14:29+00:00" />
+<meta property="article:modified_time" content="2023-11-09T17:14:29+00:00" />
+
+</head>
+    <body class="is-preload">
+        <div id="page-wrapper"><div id="header">
+    <h1><a href="/" id="logo">
+        The Big Data Space
+    </a></h1>
+
+    <nav id="nav">
+        <ul>
+                <li class="">
+                    <a href="/">Home</a>
+        </ul>
+    </nav>
+</div>
+
+
+            <section class="wrapper style1">
+                <div class="container">
+                    
+
+                        <div class="">
+                            <div id="content">
+                                <article>
+    <header>
+        <h2>Z-Ordering</h2>
+        <p></p>
+        <time>Nov 9, 2023</time>
+        
+        <ul class="tags">
+</ul>
+
+    </header><p>Z-ordering is an optimization technique in big data that allows faster access since similar data lives together. We discuss the algorithm that defines what is similar here.</p>
+<p>Imagine a logical grid where all the values of one column run across the top and all the values from another run down the side. If we were to sort this data, every datum can be placed somewhere in that grid.</p>
+<p>Now, if the squares of the grid were mapped to files and all the data in each cell were to live in those files, we have made searching much easier as we now know the subset of files in which it may live. We&rsquo;ve essentially sorted in not just one dimension but two (although we can do higher).</p>
+<p>This can be especially useful when we want to sort the data but don&rsquo;t know exactly what to sort on - a common connundrum when dealing with <a href="https://apache-iceberg.slack.com/archives/C025PH0G1D4/p1703788925597849?thread_ts=1703580174.116649&amp;cid=C025PH0G1D4">events</a>. Say we have event_time, insert_time and update_time. Which do we choose? We could sort the data three times, each time on one column but this is impractical with huge data sets. Enter z-order.</p>
+<p>Note that the Z-Order really needs 2 or more columns on which to act. Only one column is the degenerate case. &ldquo;Zorder/Hilbert etc on a single dimension are just a hierarchal sort&rdquo; - Russell Spitzer on <a href="https://apache-iceberg.slack.com/archives/C025PH0G1D4/p1672931369853579?thread_ts=1672924030.653269&amp;cid=C025PH0G1D4">Slack</a>.</p>
+<p>(<a href="https://www.dremio.com/blog/how-z-ordering-in-apache-iceberg-helps-improve-performance/">This</a> is a good article about z-ordering from the perspective of Apache Iceberg.)</p>
+<p>For an example in Delta Lake, we can see <a href="https://github.com/delta-io/delta/blob/616af05e487a9a4ccffe90a9469cb03674607690/spark/src/test/scala/org/apache/spark/sql/delta/optimize/OptimizeZOrderSuite.scala#L195">this</a> code that creates a data set with columns c1, c2 and c3 whose values are [x, 99-x, x+50 mod 100] for x [0, 99]. After z-ordering it, these numbers are split into 4 different files. <a href="https://github.com/PhillHenry/MathematicalPlayground/blob/master/graphics/plot_3d_points.py">Generating</a> a graphic illustrates how the data points are distributed over those files:</p>
+<p>The idea behind how we calculate which cell a datum falls into is best described <a href="https://en.wikipedia.org/wiki/Z-order_curve">here</a> on Wikipedia. But, in brief, the binary representation of the data points is interleaved to give a z-value per tuple. In our example, I see a [0, 99, 50] mapped to the byte array [0, 0, 0, 0, 0, 0, 0, 0, 0, 9, -112, 26].
+I took a look at the Delta Lake <a href="https://github.com/delta-io/delta/blob/616af05e487a9a4ccffe90a9469cb03674607690/spark/src/main/scala/org/apache/spark/sql/delta/skipping/MultiDimClustering.scala#L90">code</a> here where a Spark Column object is created that wraps a DL InterleaveBits type which in turn is a subclass of Spark&rsquo;s Catalyst Expression type. This executes on Spark&rsquo;s InternalRow, that is, the raw data on the executors.</p>
+<p>The reason the code is doing this is to add a column with which we can repartition the data with the SQL CAST(interleavebits(rangepartitionid(c1), rangepartitionid(c2), rangepartitionid(c3)) AS STRING). The rangepartitionid keyword is part of the Delta Lake machinery.</p>
+<p>Using this z-order value (plus a random key), the DataFrame the Delta code now calls <code>repartitionByRange</code> which samples the data <a href="https://stackoverflow.com/questions/65809909/spark-what-is-the-difference-between-repartition-and-repartitionbyrange">SO</a> and breaks it into discrete ranges.</p>
+<p>Given the interleaving of the columns c1, c2 and c3 their order has minimal impact on the z-value so it&rsquo;s no surprise to see nearby data clustering into the same files, as we can see in the graphic. In fact, if you look at the DataFrame during the repartition process:</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>you can see the slowly changing values by which things are partitioned (column c7b6b480-c678-4686-aa99-283988606159-rpKey1 -  a random name so it doesn&rsquo;t clash with other column names. It&rsquo;s dropped immediately after the call to <code>repartitionByRange</code>)</p>
+
+
+                                </article>
+                            </div>
+                        </div>
+
+                    
+                </div>
+            </section><div id="footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+
+    <ul class="icons">
+    </ul>
+
+    <div class="copyright">
+        <ul class="menu">
+            
+                <li>By architects, for architects
+        </ul>
+    </div>
+</div>
+</div><script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.dropotron.min.js"></script>
+<script src="/js/browser.min.js"></script>
+<script src="/js/breakpoints.min.js"></script>
+<script src="/js/util.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>
