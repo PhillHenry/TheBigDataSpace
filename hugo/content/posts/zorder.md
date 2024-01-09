@@ -1,6 +1,7 @@
 +++
 title = 'Z-Ordering'
 date = 2023-11-09T17:14:29Z
+tags = ["spark"]
 +++
 Z-ordering is an optimization technique in big data that allows faster access since similar data lives together. We discuss the algorithm that defines what is similar here. 
 
@@ -15,6 +16,8 @@ Note that the Z-Order really needs 2 or more columns on which to act. Only one c
 ([This](https://www.dremio.com/blog/how-z-ordering-in-apache-iceberg-helps-improve-performance/) is a good article about z-ordering from the perspective of Apache Iceberg.)
 
 For an example in Delta Lake, we can see [this](https://github.com/delta-io/delta/blob/616af05e487a9a4ccffe90a9469cb03674607690/spark/src/test/scala/org/apache/spark/sql/delta/optimize/OptimizeZOrderSuite.scala#L195) code that creates a data set with columns c1, c2 and c3 whose values are [x, 99-x, x+50 mod 100] for x [0, 99]. After z-ordering it, these numbers are split into 4 different files. [Generating](https://github.com/PhillHenry/MathematicalPlayground/blob/master/graphics/plot_3d_points.py) a graphic illustrates how the data points are distributed over those files:
+
+![2D Z-Order](../z_ordering.png)
 
 
 The idea behind how we calculate which cell a datum falls into is best described [here](https://en.wikipedia.org/wiki/Z-order_curve) on Wikipedia. But, in brief, the binary representation of the data points is interleaved to give a z-value per tuple. In our example, I see a [0, 99, 50] mapped to the byte array [0, 0, 0, 0, 0, 0, 0, 0, 0, 9, -112, 26].

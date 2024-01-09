@@ -2,3 +2,7 @@ baseURL = "/"
 languageCode = 'en-us'
 title = 'The Big Data Space'
 theme = "hugo-arcana"
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  
