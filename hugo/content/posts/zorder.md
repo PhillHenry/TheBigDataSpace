@@ -1,7 +1,7 @@
 +++
 title = 'Z-Ordering'
 date = 2023-11-09T17:14:29Z
-tags = ["spark"]
+tags = ["Spark"]
 +++
 Z-ordering is an optimization technique in big data that allows faster access since similar data lives together. We discuss the algorithm that defines what is similar here. 
 
