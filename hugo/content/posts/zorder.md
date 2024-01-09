@@ -25,7 +25,7 @@ The reason the code is doing this is to add a column with which we can repartiti
 Using this z-order value (plus a random key), the DataFrame the Delta code now calls `repartitionByRange` which samples the data [SO](https://stackoverflow.com/questions/65809909/spark-what-is-the-difference-between-repartition-and-repartitionbyrange) and breaks it into discrete ranges.
 
 Given the interleaving of the columns c1, c2 and c3 their order has minimal impact on the z-value so it's no surprise to see nearby data clustering into the same files, as we can see in the graphic. In fact, if you look at the DataFrame during the repartition process:
-<pre>
+```
 +---+---+---+-------------------------------------------+
 | c1| c2| c3|c7b6b480-c678-4686-aa99-283988606159-rpKey1|
 +---+---+---+-------------------------------------------+
@@ -45,11 +45,11 @@ Given the interleaving of the columns c1, c2 and c3 their order has minimal impa
 | 13| 86| 63|                                       \b��|
 | 14| 85| 64|                                       \f)�|
 | 15| 84| 65|                                       \f)�|
-| 16| 83| 66|                                       \f`|
-| 17| 82| 67|                                       \f`|
-| 18| 81| 68|                                       \f`b|
-| 19| 80| 69|                                       \f`e|
+| 16| 83| 66|                                       \f'|
+| 17| 82| 67|                                       \f'|
+| 18| 81| 68|                                       \f'b|
+| 19| 80| 69|                                       \f'e|
 +---+---+---+-------------------------------------------+
-</pre>
+```
 
 you can see the slowly changing values by which things are partitioned (column c7b6b480-c678-4686-aa99-283988606159-rpKey1 -  a random name so it doesn't clash with other column names. It's dropped immediately after the call to `repartitionByRange`)
