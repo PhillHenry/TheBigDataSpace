@@ -6,3 +6,5 @@ theme = "hugo-arcana"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true  
+  [highlight]
+      style = "github"
