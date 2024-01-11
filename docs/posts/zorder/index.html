@@ -43,7 +43,7 @@ Now, if the squares of the grid were mapped to files and all the data in each ce
         <p></p>
         <time>Nov 9, 2023</time>
         
-        <ul class="tags"><li><a href="/tags/spark/">Spark</a>
+        <ul class="tags"><li><a href="/tags/iceberg/">Iceberg</a>
 </ul>
 
     </header><p>Z-ordering is an optimization technique in big data that allows faster access since similar data lives together. We discuss the algorithm that defines what is similar here.</p>
@@ -59,31 +59,31 @@ I took a look at the Delta Lake <a href="https://github.com/delta-io/delta/blob/
 <p>The reason the code is doing this is to add a column with which we can repartition the data with the SQL CAST(interleavebits(rangepartitionid(c1), rangepartitionid(c2), rangepartitionid(c3)) AS STRING). The rangepartitionid keyword is part of the Delta Lake machinery.</p>
 <p>Using this z-order value (plus a random key), the DataFrame the Delta code now calls <code>repartitionByRange</code> which samples the data <a href="https://stackoverflow.com/questions/65809909/spark-what-is-the-difference-between-repartition-and-repartitionbyrange">SO</a> and breaks it into discrete ranges.</p>
 <p>Given the interleaving of the columns c1, c2 and c3 their order has minimal impact on the z-value so it&rsquo;s no surprise to see nearby data clustering into the same files, as we can see in the graphic. In fact, if you look at the DataFrame during the repartition process:</p>
-<pre tabindex="0"><code>+---+---+---+-------------------------------------------+
-| c1| c2| c3|c7b6b480-c678-4686-aa99-283988606159-rpKey1|
-+---+---+---+-------------------------------------------+
-|  0| 99| 50|                                       \t�|
-|  1| 98| 51|                                       \t�|
-|  2| 97| 52|                                       \t�b|
-|  3| 96| 53|                                       \t�e|
-|  4| 95| 54|                                       \b��|
-|  5| 94| 55|                                       \b��|
-|  6| 93| 56|                                       \b��|
-|  7| 92| 57|                                       \b��|
-|  8| 91| 58|                                       \b�|
-|  9| 90| 59|                                       \b�|
-| 10| 89| 60|                                       \b�b|
-| 11| 88| 61|                                       \b�e|
-| 12| 87| 62|                                       \b��|
-| 13| 86| 63|                                       \b��|
-| 14| 85| 64|                                       \f)�|
-| 15| 84| 65|                                       \f)�|
-| 16| 83| 66|                                       \f&#39;|
-| 17| 82| 67|                                       \f&#39;|
-| 18| 81| 68|                                       \f&#39;b|
-| 19| 80| 69|                                       \f&#39;e|
-+---+---+---+-------------------------------------------+
-</code></pre><p>you can see the slowly changing values by which things are partitioned (column c7b6b480-c678-4686-aa99-283988606159-rpKey1 -  a random name so it doesn&rsquo;t clash with other column names. It&rsquo;s dropped immediately after the call to <code>repartitionByRange</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>+---+---+---+-------------------------------------------+
+</span></span><span style="display:flex;"><span>| c1| c2| c3|c7b6b480-c678-4686-aa99-283988606159-rpKey1|
+</span></span><span style="display:flex;"><span>+---+---+---+-------------------------------------------+
+</span></span><span style="display:flex;"><span>|  0| 99| 50|                                        \t�|
+</span></span><span style="display:flex;"><span>|  1| 98| 51|                                        \t�|
+</span></span><span style="display:flex;"><span>|  2| 97| 52|                                       \t�b|
+</span></span><span style="display:flex;"><span>|  3| 96| 53|                                       \t�e|
+</span></span><span style="display:flex;"><span>|  4| 95| 54|                                       \b��|
+</span></span><span style="display:flex;"><span>|  5| 94| 55|                                       \b��|
+</span></span><span style="display:flex;"><span>|  6| 93| 56|                                       \b��|
+</span></span><span style="display:flex;"><span>|  7| 92| 57|                                       \b��|
+</span></span><span style="display:flex;"><span>|  8| 91| 58|                                        \b�|
+</span></span><span style="display:flex;"><span>|  9| 90| 59|                                        \b�|
+</span></span><span style="display:flex;"><span>| 10| 89| 60|                                       \b�b|
+</span></span><span style="display:flex;"><span>| 11| 88| 61|                                       \b�e|
+</span></span><span style="display:flex;"><span>| 12| 87| 62|                                       \b��|
+</span></span><span style="display:flex;"><span>| 13| 86| 63|                                       \b��|
+</span></span><span style="display:flex;"><span>| 14| 85| 64|                                       \f)�|
+</span></span><span style="display:flex;"><span>| 15| 84| 65|                                       \f)�|
+</span></span><span style="display:flex;"><span>| 16| 83| 66|                                        \f&#39;|
+</span></span><span style="display:flex;"><span>| 17| 82| 67|                                        \f&#39;|
+</span></span><span style="display:flex;"><span>| 18| 81| 68|                                       \f&#39;b|
+</span></span><span style="display:flex;"><span>| 19| 80| 69|                                       \f&#39;e|
+</span></span><span style="display:flex;"><span>+---+---+---+-------------------------------------------+
+</span></span></code></pre></div><p>you can see the slowly changing values by which things are partitioned (column c7b6b480-c678-4686-aa99-283988606159-rpKey1 -  a random name so it doesn&rsquo;t clash with other column names. It&rsquo;s dropped immediately after the call to <code>repartitionByRange</code>)</p>
 
 
                                 </article>
