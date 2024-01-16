@@ -8,3 +8,21 @@ theme = "hugo-arcana"
       unsafe = true  
   [highlight]
       style = "github"
+
+[params]
+    description = "A business/corporate style responsive site template."
+    show_post_dates = false
+
+    [[params.social]]
+        title = "Twitter"
+        icon = "fa-twitter"
+        url = "https://twitter.com/ph1ll1phenry"
+    [[params.social]]
+        title = "GitHub"
+        icon = "fa-github"
+        url = "https://github.com/PhillHenry"
+    [[params.social]]
+        title = "LinkedIn"
+        icon = "fa-linkedin-in"
+        url = "https://www.linkedin.com/in/phillhenry/"
+
