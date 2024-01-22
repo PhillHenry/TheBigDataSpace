@@ -75,3 +75,11 @@ Z-Order over a similar sparse space
 and you can see larger jumps between some data points. The average is 2.083 in this run. That's 45% higher than in the Hilbert curve.
 
 Hilbert curves are not currently implemented in Apache Iceberg but are in Databrick’s Delta Lake.
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
