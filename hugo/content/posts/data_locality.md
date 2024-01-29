@@ -11,7 +11,7 @@ Data locality is where the computation and the storage are on the same node. Thi
 
 With a lot of cloud offerings, we lose the data locality that made [Hadoop](https://github.com/apache/hadoop/blob/b2fac14828b69c761858dd7cb9ab17313c28b161/hadoop-hdfs-project/hadoop-hdfs-client/src/main/java/org/apache/hadoop/hdfs/shortcircuit/ShortCircuitReplica.java#L277) such a great framework on which to run Spark some 10 years ago. The cloud providers counter this with a "just rent more nodes" argument. But if you have full control over your infrastructure (say you have an on-prem cluster) throwing away data locality is a huge waste.
 
-Just to recap, data locality gives you doubleplusgood efficiency. Not only does the network not take a hit sending huge amoungs of data from storage to compute nodes, but we retain OS treats like caching. 
+Just to recap, data locality gives you doubleplusgood efficiency. Not only does the network not take a hit sending huge amounts of data from storage to compute nodes, but we retain OS treats like caching. 
 
 What? The OS has built in caching? Have you ever grepped a large directory and then noticed that executing the same command a second time is orders of magnitude faster than the first time? That's because modern operating systems [leave pages in memory](https://www.linuxatemyram.com/) unless there is a reason to dispose of them. Most of the time, there is no point in putting some caching layer on the same machine as where the database lives for simple queries - a strange anti-pattern I've seen in the wild.
 
@@ -25,6 +25,6 @@ Why is memory mapping useful? Well, you don't even need to make [kernel calls](h
 
 Note there are kernel calls in setting up the memory mapping but after that, there is nothing as we read the entire file.
 
-So, why have many architects largely abandoned data locality? It's generally a matter of economics as the people at MinIO point out [here](https://min.io/solutions/hdfs-migration). If your data is not homogenous, you might be paying for, say, 32 CPUs on a node that's just being used for storage. An example might be that you have a cluster with 10 years of data but you mainly use that last two years. If the data for the first eight years is living on expensive hardware and rarely accessed, that could be a waste of money.
+So, why have many architects largely abandoned data locality? It's generally a matter of economics as the people at MinIO point out [here](https://min.io/solutions/hdfs-migration). If your data is not homogeneous, you might be paying for, say, 32 CPUs on a node that's just being used for storage. An example might be that you have a cluster with 10 years of data but you mainly use that last two years. If the data for the first eight years is living on expensive hardware and rarely accessed, that could be a waste of money.
 
 So, should you use data locality today? The answer, as ever, is "it depends".
