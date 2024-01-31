@@ -8,6 +8,8 @@ image_alt: "bio"
 #tags: ["about"]
 ---
 
+!["kenny eliaso's photo of a presentation"](/presenting.jpg)
+
 ### The Big Data Space
 The most important skill of an architect should not be PowerPoint.
 
