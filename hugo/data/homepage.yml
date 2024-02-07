@@ -25,6 +25,10 @@ items:
       icon: img/spark-logo.png
       content: >
               Spark
+    - title: AWS
+      icon: img/aws-logo.png
+      content: >
+        [BDDs](https://aws.thebigdata.space/)
   - type: heading
     heading: No longer medieval architecture
     contents: With worked examples that illustrate functionality, we make systems architecture much more scientific.
