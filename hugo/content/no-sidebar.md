@@ -11,11 +11,11 @@ image_alt: "bio"
 !["kenny eliaso's photo of a presentation"](/presenting.jpg)
 
 ### The Big Data Space
-The most important skill of an architect should not be PowerPoint.
+An architect's most important skill should not be PowerPoint.
 
 What an architect brings to the party is a nexus of skills. These skills inform their ability to shape solutions that require little or no change. And if change is required, it should be painless.
 
-This site is dedicated to common big data solutions. It shows how they are used by example, not hand-waving arguments that are too abstract to be useful.
+This site is dedicated to common, big data solutions. It shows how they are used by example, not hand-waving arguments that are too abstract to be useful.
 
 Like architecture in the physical world, logical architecture should be delightful by barely being noticed.  
 
