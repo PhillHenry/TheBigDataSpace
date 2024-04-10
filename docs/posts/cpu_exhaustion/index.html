@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+
+<title>When more CPUs do not help your problem with CPUs | The Big Data Space</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/style.css" />
+<meta property="og:title" content="When more CPUs do not help your problem with CPUs" />
+<meta property="og:description" content="This is an interesting problem on Discourse where the symptoms belie the cause. Here, a very beefy Spark cluster is taking a long time process (admittedly) a large amount of data. However, it&rsquo;s the CPUs that are getting hammered.
+The temptation at this point is to add more CPU resources but this won&rsquo;t help much.
+When your Spark jobs that are not computationally intensive are using large amounts of CPU, there&rsquo;s an obvious suspect." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/cpu_exhaustion/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-04-10T14:47:56+01:00" />
+<meta property="article:modified_time" content="2024-04-10T14:47:56+01:00" />
+
+</head>
+    <body class="is-preload">
+        <div id="page-wrapper"><div id="header">
+    <h1><a href="/" id="logo">
+        The Big Data Space
+    </a></h1>
+
+    <nav id="nav">
+        <ul>
+                <li class="">
+                    <a href="/">Home</a>
+                <li class="current">
+                    <a href="/posts/">Posts</a>
+                <li class="">
+                    <a href="/no-sidebar/">About</a>
+        </ul>
+    </nav>
+</div>
+
+
+            <section class="wrapper style1">
+                <div class="container">
+                    
+
+                        <div class="">
+                            <div id="content">
+                                <article>
+    <header>
+        <h2>When more CPUs do not help your problem with CPUs</h2>
+        <p></p>
+        
+        <ul class="tags">
+</ul>
+
+    </header><p><a href="https://discord.com/channels/566333122615181327/566334526540742656/1214860027668467772">This</a> is an interesting problem on Discourse where the symptoms belie the cause. Here, a very beefy Spark cluster is taking a long time process (admittedly) a large amount of data. However, it&rsquo;s the CPUs that are getting hammered.</p>
+<p><img src="../cpu_exhaustion/spark_cpu.png" alt="Insanely high CPU usage"></p>
+<p>The temptation at this point is to add more CPU resources but this won&rsquo;t help much.</p>
+<p>When your Spark jobs that are not computationally intensive are using large amounts of CPU, there&rsquo;s an obvious suspect. Let&rsquo;s check time spent in Garbage Collection:</p>
+<p><img src="../cpu_exhaustion/spark_gc.png" alt="Insanely high GC usage"></p>
+<p>Shuffle per worker seems modest but look at those GC Times. In a five hours job, nearly two hours is spent just garbage collecting.</p>
+<p>And this is something of a surprise to people new to Spark. Sure, it delivers on its promise to process more data than can fit in memory but if you want it to be performant, you need to give it as much memory as possible.</p>
+
+
+                                </article>
+                            </div>
+                        </div>
+
+                    
+                </div>
+            </section><div id="footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+
+    <ul class="icons">
+        <li><a href="https://twitter.com/ph1ll1phenry" class="icon brands fa-twitter">
+            <span class="label">Twitter</span>
+        </a>
+        <li><a href="https://github.com/PhillHenry" class="icon brands fa-github">
+            <span class="label">GitHub</span>
+        </a>
+        <li><a href="https://www.linkedin.com/in/phillhenry/" class="icon brands fa-linkedin-in">
+            <span class="label">LinkedIn</span>
+        </a>
+    </ul>
+
+    <div class="copyright">
+        <ul class="menu">
+            
+                <li>By architects, for architects
+        </ul>
+    </div>
+</div>
+</div><script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.dropotron.min.js"></script>
+<script src="/js/browser.min.js"></script>
+<script src="/js/breakpoints.min.js"></script>
+<script src="/js/util.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>
