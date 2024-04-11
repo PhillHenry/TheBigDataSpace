@@ -3,7 +3,7 @@ title = 'When more CPUs do not help your problem with CPUs'
 date = 2024-04-10T14:47:56+01:00
 +++
 
-[This](https://discord.com/channels/566333122615181327/566334526540742656/1214860027668467772) is an interesting problem on Discourse where the symptoms belie the cause. Here, a very beefy Spark cluster is taking a long time process (admittedly) a large amount of data. However, it's the CPUs that are getting hammered. 
+[This](https://discord.com/channels/566333122615181327/566334526540742656/1214860027668467772) is an interesting problem on Discord where the symptoms belie the cause. Here, a very beefy Spark cluster is taking a long time process (admittedly) a large amount of data. However, it's the CPUs that are getting hammered. 
 
 ![Insanely high CPU usage](../cpu_exhaustion/spark_cpu.png)
 
