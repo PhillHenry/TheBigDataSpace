@@ -1,7 +1,7 @@
 +++
 title = 'The Death of Data Locality?'
 date = 2024-01-29T16:39:27Z
-draft = true
+draft = false
 +++
 
 ![Joshua Sortino <](../data_locality.jpg)
