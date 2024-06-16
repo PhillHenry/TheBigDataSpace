@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+
+<title>First look at the Unity Catalog | The Big Data Space</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/style.css" />
+<meta property="og:title" content="First look at the Unity Catalog" />
+<meta property="og:description" content="Databrick&rsquo;s Unity Catalog has now been open sourced GitHub. But there&rsquo;s not a huge amount of code there - I counted a mere 133 Java files which were neither test nor examples.
+This is not too surprising since it&rsquo;s little more than a REST API over a (H2) database that stores metadata. It is just a catalog after all.
+What is a little more surprising is that &ldquo;MANAGED table creation is not supported yet." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/unity_catalog/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-06-16T10:30:33+01:00" />
+<meta property="article:modified_time" content="2024-06-16T10:30:33+01:00" />
+
+</head>
+    <body class="is-preload">
+        <div id="page-wrapper"><div id="header">
+    <h1><a href="/" id="logo">
+        The Big Data Space
+    </a></h1>
+
+    <nav id="nav">
+        <ul>
+                <li class="">
+                    <a href="/">Home</a>
+                <li class="current">
+                    <a href="/posts/">Posts</a>
+                <li class="">
+                    <a href="/no-sidebar/">About</a>
+        </ul>
+    </nav>
+</div>
+
+
+            <section class="wrapper style1">
+                <div class="container">
+                    
+
+                        <div class="">
+                            <div id="content">
+                                <article>
+    <header>
+        <h2>First look at the Unity Catalog</h2>
+        <p></p>
+        
+        <ul class="tags">
+</ul>
+
+    </header><p>Databrick&rsquo;s Unity Catalog has now been open sourced <a href="https://github.com/unitycatalog/unitycatalog">GitHub</a>. But there&rsquo;s not a huge amount of code there - I counted a mere 133 Java files which were neither test nor examples.</p>
+<p><img src="../unity_through_diversity2.jpg" alt="Claudio Schwarz Unity Through Diversity"></p>
+<p>This is not too surprising since it&rsquo;s little more than a REST API over a (<a href="https://github.com/h2database/h2database">H2</a>) database that stores metadata. It is just a catalog after all.</p>
+<p>What is a little more surprising is that &ldquo;MANAGED table creation is not supported yet.&rdquo; <a href="https://github.com/unitycatalog/unitycatalog/blob/873131f57ca6f8e43e0bb707e6a4c1c59facd488/server/src/main/java/io/unitycatalog/server/persist/TableRepository.java#L110">GitHub</a> Managed tables are those that Unity, well, manages. That is, the whole life cycle of the table is under its purview. Contrast this with EXTERNAL tables that live elsewhere, who knows where - it&rsquo;s not important.</p>
+<p>Remember that Unity is a catalog not a data store. This confusing the map with the territory <a href="https://en.wikipedia.org/wiki/Map%E2%80%93territory_relation">Wikipedia</a> is common when coming across metastores. This is perhaps due to the Apache Hive project that is somewhat moribund these days and Hive&rsquo;s metastore which is very much alive. But think of a metastore like web URLs where the locale of the machine hosting the website is irrelevant. Only its domain name is what we care about.</p>
+<p>With Databricks recent <a href="https://www.databricks.com/blog/databricks-tabular">acquisition</a> of Tabular.io (the defacto commercial force behind Apache Iceberg) it will be interesting to see how Iceberg integrates with it, if at all. Iceberg does <a href="https://iceberg.apache.org/docs/latest/reliability/">not</a> (as demonstrated <a href="http://iceberg.thebigdata.space/IcebergCRUD.html">here</a>) store its table information in a metastore (unlike <a href="http://deltalake.thebigdata.space/Crud.html">Delta</a>). All its information is contained in the metadata files. Whether Databricks will encourage Iceberg to be tied to the metastore remains to be seen.</p>
+
+
+                                </article>
+                            </div>
+                        </div>
+
+                    
+                </div>
+            </section><div id="footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+
+    <ul class="icons">
+        <li><a href="https://twitter.com/ph1ll1phenry" class="icon brands fa-twitter">
+            <span class="label">Twitter</span>
+        </a>
+        <li><a href="https://github.com/PhillHenry" class="icon brands fa-github">
+            <span class="label">GitHub</span>
+        </a>
+        <li><a href="https://www.linkedin.com/in/phillhenry/" class="icon brands fa-linkedin-in">
+            <span class="label">LinkedIn</span>
+        </a>
+    </ul>
+
+    <div class="copyright">
+        <ul class="menu">
+            
+                <li>By architects, for architects
+        </ul>
+    </div>
+</div>
+</div><script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.dropotron.min.js"></script>
+<script src="/js/browser.min.js"></script>
+<script src="/js/breakpoints.min.js"></script>
+<script src="/js/util.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

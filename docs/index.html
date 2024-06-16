@@ -94,6 +94,20 @@
                 <div class="row">
             <section class="col-6 col-12-narrower">
     <div class="box post">
+        <a href="/posts/unity_catalog/" class="image left"><img src="/" alt="" /></a>
+        <div class="inner">
+            <h3><a href="/posts/unity_catalog/">First look at the Unity Catalog</a></h3>
+            
+            <p>
+                Databrick&rsquo;s Unity Catalog has now been open sourced GitHub. But there&rsquo;s not a huge amount of code there - I counted a mere 133 Java files which were neither test nor examples.
+This is not too surprising since it&rsquo;s little more than a REST API over a (H2) database that stores metadata. It is just a catalog after all.
+What is a little more surprising is that &ldquo;MANAGED table creation is not supported yet.
+            </p>
+        </div>
+    </div>
+</section>
+<section class="col-6 col-12-narrower">
+    <div class="box post">
         <a href="/posts/cpu_exhaustion/" class="image left"><img src="/" alt="" /></a>
         <div class="inner">
             <h3><a href="/posts/cpu_exhaustion/">When more CPUs do not help your problem with CPUs</a></h3>
@@ -106,7 +120,9 @@ When your Spark jobs that are not computationally intensive are using large amou
         </div>
     </div>
 </section>
-<section class="col-6 col-12-narrower">
+</div>
+                <div class="row">
+            <section class="col-6 col-12-narrower">
     <div class="box post">
         <a href="/posts/data_locality/" class="image left"><img src="/" alt="" /></a>
         <div class="inner">
@@ -119,9 +135,7 @@ With a lot of cloud offerings, we lose the data locality that made Hadoop such a
         </div>
     </div>
 </section>
-</div>
-                <div class="row">
-            <section class="col-6 col-12-narrower">
+<section class="col-6 col-12-narrower">
     <div class="box post">
         <a href="/posts/hilbert/" class="image left"><img src="/" alt="" /></a>
         <div class="inner">
@@ -132,20 +146,6 @@ With a lot of cloud offerings, we lose the data locality that made Hadoop such a
 From DataBrick&rsquo;s Liquid Cluster design doc we get this graphical representation of what it looks like:
 (Dotted line squares represent files).
 A Hilbert curve has the property that adjacent nodes (on the red line, above) have a distance of 1.
-            </p>
-        </div>
-    </div>
-</section>
-<section class="col-6 col-12-narrower">
-    <div class="box post">
-        <a href="/posts/zorder/" class="image left"><img src="/" alt="" /></a>
-        <div class="inner">
-            <h3><a href="/posts/zorder/">Z-Ordering</a></h3>
-            
-            <p>
-                Z-ordering is an optimization technique in big data that allows faster access since similar data lives together. We discuss the algorithm that defines what is similar here.
-Imagine a logical grid where all the values of one column run across the top and all the values from another run down the side. If we were to sort this data, every datum can be placed somewhere in that grid.
-Now, if the squares of the grid were mapped to files and all the data in each cell were to live in those files, we have made searching much easier as we now know the subset of files in which it may live.
             </p>
         </div>
     </div>
