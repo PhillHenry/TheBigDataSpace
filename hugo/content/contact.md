@@ -1,6 +1,6 @@
 +++
 title = 'Contact'
-draft = true
+draft = false
 +++
 
 Email: ph@odinconsultants.co.uk
