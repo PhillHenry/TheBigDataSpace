@@ -48,7 +48,7 @@ With a lot of cloud offerings, we lose the data locality that made Hadoop such a
         <ul class="tags">
 </ul>
 
-    </header><p><img src="../data_locality.jpg" alt="Joshua Sortino &lt;"></p>
+    </header><p><img src="../data_locality.jpg" alt="Joshua Sortino <"></p>
 <p>Data locality is where the computation and the storage are on the same node. This means we don&rsquo;t need to move huge data sets around the network. But it&rsquo;s a pattern that has fallen out of fashion in recent years.</p>
 <p>With a lot of cloud offerings, we lose the data locality that made <a href="https://github.com/apache/hadoop/blob/b2fac14828b69c761858dd7cb9ab17313c28b161/hadoop-hdfs-project/hadoop-hdfs-client/src/main/java/org/apache/hadoop/hdfs/shortcircuit/ShortCircuitReplica.java#L277">Hadoop</a> such a great framework on which to run Spark some 10 years ago. The cloud providers counter this with a <em>&ldquo;just rent more nodes&rdquo;</em> argument. But if you have full control over your infrastructure (say you have an on-prem cluster), throwing away data locality is a huge waste.</p>
 <p>Just to recap, data locality gives you doubleplusgood efficiency. Not only does the network not take a hit sending huge amounts of data from storage to compute nodes, but we retain OS treats like caching.</p>
